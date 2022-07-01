@@ -22,4 +22,22 @@ class PropertyController extends AbstractController
             'current_menu' => 'properties'
         ]);
     }
+
+    #[Route('/biens/{slug}-{id}', name: 'property.show', methods: 'GET', requirements: ['slug' => "[a-z0-9\-]*"])]
+    public function show(Property $property, string $slug): Response
+    {        
+
+        if ($property->getSlug() != $slug)
+        {
+            return $this->redirectToRoute('property.show', [
+                'id' => $property->getId(),
+                'slug' => $property->getSlug()
+            ], 301);
+        }
+        
+        return $this->render('property/show.html.twig', [
+            'current_menu' => 'properties',
+            'property' => $property
+        ]);
+    }
 }

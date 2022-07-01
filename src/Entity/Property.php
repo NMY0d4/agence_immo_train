@@ -5,14 +5,15 @@ namespace App\Entity;
 use App\Repository\PropertyRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 class Property
 {
     const HEAT = [
-        0 => 'electric',
-        1 => 'gaz',
-        2 => 'fioul'
+        0 => 'Electric',
+        1 => 'Gaz',
+        2 => 'Fioul'
     ];
 
     #[ORM\Id]
@@ -79,6 +80,12 @@ class Property
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getSlug() {
+
+        return $slugify = (new Slugify())->slugify($this->title); // hello-world
+
     }
 
     public function getDescription(): ?string
@@ -170,6 +177,11 @@ class Property
         $this->heat = $heat;
 
         return $this;
+    }
+
+    public function getHeatType(): ?string
+    {
+        return self::HEAT[$this->heat];
     }
 
     public function getCity(): ?string

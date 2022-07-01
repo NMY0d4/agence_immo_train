@@ -3,14 +3,14 @@
 {% block title 'Agence lorem ipsum' %}
 
 {% block body %}
-    <div class="jumbotron text-center">        
+    <div class="jumbotron text-center mt-4">        
             <h1>Agence lorem ipsum</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam aliquid alias nobis placeat! Facilis iusto porro, quae sit libero, cumque esse quos velit culpa vero ipsam molestias eaque blanditiis sint?</p>
         
     </div>
 
     <div class="container">
-        <h2>Les derniers biens</h2>
+        <h2 class="mt-4">Les derniers biens</h2>
         <div class="row flex">
             {% for property in properties %}
 
@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
-                        <a href="#">{{ property.title }}</a>
+                        <a href="{{ path('property.show', { id: property.id, slug: property.slug }) }}">{{ property.title }}</a>
                         </h5>
                         <div class="card-text">{{ property.city }} ({{ property.postalCode }})</div>
                         <div class="text-primary" style="font-weight: bold; font-size: 2rem;">{{ property.formattedPrice }} €</div>
