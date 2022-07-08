@@ -6,8 +6,11 @@ use App\Repository\PropertyRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: PropertyRepository::class)]
+#[ORM\Entity(repositoryClass: PropertyRepository::class)] 
+#[UniqueEntity(fields: ['title'], message: 'Il y a déjà un titre identique.')]   
 class Property
 {
     const HEAT = [
@@ -22,36 +25,50 @@ class Property
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]   
+    #[Assert\Length(min: 5, max: 255)]     
     private $title;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Assert\NotBlank]
     private $description;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank] 
+    #[Assert\Range(min: 10, max: 400)] 
     private $surface;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank] 
     private $rooms;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank] 
     private $bedrooms;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank] 
     private $floor;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank] 
     private $price;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank] 
     private $heat;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank] 
     private $city;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank] 
     private $address;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank] 
+    #[Assert\Regex("/^[0-9]{5}$/")] 
     private $postal_code;
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]

@@ -18,7 +18,7 @@
     </div>     
 
     {{ form_rest(form) }}
-    <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+    <button class="btn btn-primary" formnovalidate>{{ button|default('Enregistrer') }}</button>
 
 {{ form_end(form) }}         
         
